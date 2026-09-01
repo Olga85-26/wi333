@@ -171,67 +171,118 @@
             min-width: 20px;
         }
 
-        /* ===== ЭЛЕКТРОННЫЕ ЧАСЫ ===== */
-        .digital-clock {
+        /* ===== ДВОЙНОЕ ТАБЛО ВРЕМЕНИ ===== */
+        .time-setter {
             background: #1a1a2e;
             border-radius: 12px;
-            padding: 12px;
+            padding: 15px;
             margin-bottom: 10px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 8px;
+            gap: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        .clock-display {
+        .time-inputs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .time-input-group {
+            text-align: center;
+        }
+
+        .time-input-group label {
+            color: #aaa;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .time-input-group input {
+            width: 70px;
+            height: 50px;
             background: #0f0f23;
+            border: 2px solid #00ff88;
             border-radius: 8px;
-            padding: 8px 20px;
             color: #00ff88;
             font-family: 'Courier New', monospace;
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: bold;
-            text-shadow: 0 0 10px rgba(0,255,136,0.5);
-            letter-spacing: 3px;
-            cursor: pointer;
-            user-select: none;
-            border: 2px solid #00ff88;
             text-align: center;
-            width: 100%;
-            transition: all 0.2s;
+            text-shadow: 0 0 10px rgba(0,255,136,0.3);
+            outline: none;
+            transition: border-color 0.2s;
         }
 
-        .clock-display:hover {
-            background: #1a1a3e;
-            transform: scale(1.02);
+        .time-input-group input:focus {
+            border-color: #00ccff;
+            box-shadow: 0 0 15px rgba(0,204,255,0.3);
         }
 
-        .clock-display small {
-            font-size: 0.8rem;
-            color: #00ccff;
-            display: block;
-            margin-top: 4px;
-            font-family: 'Segoe UI', Arial, sans-serif;
+        .time-input-group input.error {
+            border-color: #ff4444;
+            animation: shake 0.3s;
         }
 
-        /* Ползунок */
-        .time-slider {
-            width: 100%;
-            height: 8px;
-            border-radius: 5px;
-            background: #333;
+        @keyframes shake {
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        .time-colon {
+            color: #00ff88;
+            font-size: 2.5rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 5px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.3; }
+        }
+
+        /* Слайдеры */
+        .time-sliders {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slider-row label {
+            color: #aaa;
+            font-size: 0.85rem;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .slider-row input[type="range"] {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: #444;
             outline: none;
             -webkit-appearance: none;
             appearance: none;
             cursor: pointer;
         }
 
-        .time-slider::-webkit-slider-thumb {
+        .slider-row input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             background: #00ff88;
             cursor: pointer;
@@ -239,161 +290,68 @@
             box-shadow: 0 0 10px rgba(0,255,136,0.5);
         }
 
-        .time-slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
+        .slider-row input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             background: #00ff88;
             cursor: pointer;
             border: 2px solid #00ff88;
         }
 
-        .slider-label {
-            color: #aaa;
-            font-size: 0.85rem;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
+        .slider-row .slider-value {
+            color: #00ff88;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            font-weight: bold;
+            min-width: 40px;
+            text-align: center;
+            background: #0f0f23;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #333;
         }
 
-        /* Кнопка добавления времени */
+        /* Кнопки добавления */
+        .time-actions {
+            display: flex;
+            gap: 8px;
+        }
+
         .add-time-btn {
+            flex: 1;
             background: #00ff88;
             color: #1a1a2e;
             border: none;
             border-radius: 8px;
-            padding: 8px 20px;
+            padding: 10px;
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.2s;
-            width: 100%;
         }
 
         .add-time-btn:hover {
-            background: #00cc66;
+            background: #00cc55;
             transform: scale(1.02);
         }
 
-        /* Модальное окно для выбора времени */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+        .add-time-btn.reset {
+            background: #666;
+            color: white;
         }
 
-        .modal-overlay.active {
-            display: flex;
+        .add-time-btn.reset:hover {
+            background: #555;
         }
 
-        .modal {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        .total-display {
             text-align: center;
-        }
-
-        .modal h3 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .modal .clock-preview {
-            background: #1a1a2e;
             color: #00ff88;
             font-family: 'Courier New', monospace;
-            font-size: 3rem;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 3px solid #00ff88;
-            box-shadow: 0 0 20px rgba(0,255,136,0.3);
-            text-align: center;
-        }
-
-        .modal input[type="range"] {
-            width: 100%;
-            height: 8px;
-            border-radius: 5px;
-            background: #333;
-            outline: none;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-
-        .modal input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #00ff88;
-            cursor: pointer;
-            border: 2px solid #00ff88;
-        }
-
-        .modal .time-presets {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .modal .preset-btn {
-            padding: 8px 12px;
-            background: #f0f0f0;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-
-        .modal .preset-btn:hover {
-            background: #00ff88;
-            border-color: #00ff88;
-        }
-
-        .modal .modal-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .modal .modal-buttons button {
-            padding: 10px 25px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .modal .confirm-btn {
-            background: #28a745;
-            color: white;
-        }
-
-        .modal .confirm-btn:hover {
-            background: #218838;
-        }
-
-        .modal .cancel-btn {
-            background: #dc3545;
-            color: white;
-        }
-
-        .modal .cancel-btn:hover {
-            background: #c82333;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0,255,136,0.5);
         }
 
         .task-list {
@@ -512,16 +470,6 @@
             margin-top: 20px;
             font-size: 1rem;
         }
-
-        .filtered-message {
-            text-align: center;
-            color: white;
-            font-size: 1.1rem;
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 10px;
-        }
     </style>
 </head>
 <body>
@@ -542,51 +490,19 @@
         <div class="stats" id="stats"></div>
     </div>
 
-    <!-- Модальное окно для выбора времени -->
-    <div class="modal-overlay" id="timeModal">
-        <div class="modal">
-            <h3>⏱ Выбери время</h3>
-            <div class="clock-preview" id="modalClockPreview">00:00</div>
-            
-            <label>Часы: <strong id="modalHoursLabel">0</strong></label>
-            <input type="range" id="modalHoursSlider" min="0" max="24" value="0" step="1">
-            
-            <label>Минуты: <strong id="modalMinutesLabel">0</strong></label>
-            <input type="range" id="modalMinutesSlider" min="0" max="55" value="0" step="5">
-            
-            <div class="time-presets">
-                <button class="preset-btn" onclick="setPresetTime(0.5)">30м</button>
-                <button class="preset-btn" onclick="setPresetTime(1)">1ч</button>
-                <button class="preset-btn" onclick="setPresetTime(1.5)">1.5ч</button>
-                <button class="preset-btn" onclick="setPresetTime(2)">2ч</button>
-                <button class="preset-btn" onclick="setPresetTime(3)">3ч</button>
-                <button class="preset-btn" onclick="setPresetTime(4)">4ч</button>
-                <button class="preset-btn" onclick="setPresetTime(8)">8ч</button>
-            </div>
-
-            <div class="modal-buttons">
-                <button class="confirm-btn" onclick="confirmTime()">✅ OK</button>
-                <button class="cancel-btn" onclick="closeTimeModal()">❌ Отмена</button>
-            </div>
-        </div>
-    </div>
-
     <script>
         // Задачи
         let tasks = {};
         let currentView = 'week';
-        let selectedDateStr = null;
-        let selectedHours = 0;
-        let selectedMinutes = 0;
 
         // Загрузка из localStorage
         function loadTasks() {
-            const saved = localStorage.getItem('plannerTasksV3');
+            const saved = localStorage.getItem('plannerTasksV4');
             if (saved) tasks = JSON.parse(saved);
         }
 
         function saveTasks() {
-            localStorage.setItem('plannerTasksV3', JSON.stringify(tasks));
+            localStorage.setItem('plannerTasksV4', JSON.stringify(tasks));
         }
 
         function formatDate(date) {
@@ -617,57 +533,80 @@
 
         const dayNames = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
 
-        // ===== ЭЛЕКТРОННЫЕ ЧАСЫ =====
-        function openTimeModal(dateStr) {
-            selectedDateStr = dateStr;
-            selectedHours = 0;
-            selectedMinutes = 0;
-            document.getElementById('modalHoursSlider').value = 0;
-            document.getElementById('modalMinutesSlider').value = 0;
-            updateModalClock();
-            document.getElementById('timeModal').classList.add('active');
-        }
-
-        function closeTimeModal() {
-            document.getElementById('timeModal').classList.remove('active');
-        }
-
-        function updateModalClock() {
-            const hrs = document.getElementById('modalHoursSlider').value;
-            const mins = document.getElementById('modalMinutesSlider').value;
-            
-            document.getElementById('modalHoursLabel').textContent = hrs;
-            document.getElementById('modalMinutesLabel').textContent = mins;
-            
-            const timeStr = String(hrs).padStart(2, '0') + ':' + String(mins).padStart(2, '0');
-            document.getElementById('modalClockPreview').textContent = timeStr;
-        }
-
-        function setPresetTime(hours) {
+        // Форматирование часов в ЧЧ:ММ
+        function formatTime(hours) {
             const h = Math.floor(hours);
             const m = Math.round((hours - h) * 60);
-            document.getElementById('modalHoursSlider').value = h;
-            document.getElementById('modalMinutesSlider').value = m;
-            updateModalClock();
+            if (m === 60) {
+                return String(h + 1).padStart(2, '0') + ':00';
+            }
+            return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
         }
 
-        function confirmTime() {
-            const hrs = parseInt(document.getElementById('modalHoursSlider').value);
-            const mins = parseInt(document.getElementById('modalMinutesSlider').value);
-            const totalHours = hrs + (mins / 60);
+        // Обновление значений из слайдеров
+        function updateClockInputs(dateStr) {
+            const hSlider = document.getElementById('hSlider-' + dateStr);
+            const mSlider = document.getElementById('mSlider-' + dateStr);
+            const hInput = document.getElementById('hInput-' + dateStr);
+            const mInput = document.getElementById('mInput-' + dateStr);
+            
+            if (hSlider && mSlider) {
+                hInput.value = parseInt(hSlider.value);
+                mInput.value = parseInt(mSlider.value);
+                
+                const hVal = document.getElementById('hSliderVal-' + dateStr);
+                const mVal = document.getElementById('mSliderVal-' + dateStr);
+                
+                if (hVal) hVal.textContent = String(parseInt(hSlider.value)).padStart(2, '0');
+                if (mVal) mVal.textContent = String(parseInt(mSlider.value)).padStart(2, '0');
+            }
+        }
 
+        // Добавление времени из полей
+        function addTimeFromInputs(dateStr) {
+            const hInput = document.getElementById('hInput-' + dateStr);
+            const mInput = document.getElementById('mInput-' + dateStr);
+            
+            let hours = parseInt(hInput.value) || 0;
+            let minutes = parseInt(mInput.value) || 0;
+            
+            // Валидация
+            let hasError = false;
+            if (hours > 24) { hInput.classList.add('error'); hasError = true; }
+            else hInput.classList.remove('error');
+            
+            if (minutes > 60) { mInput.classList.add('error'); hasError = true; }
+            else mInput.classList.remove('error');
+            
+            if (hasError) {
+                setTimeout(() => {
+                    hInput.classList.remove('error');
+                    mInput.classList.remove('error');
+                }, 2000);
+                return;
+            }
+            
+            const totalHours = hours + (minutes / 60);
+            
             if (totalHours > 0) {
-                if (!tasks[selectedDateStr]) tasks[selectedDateStr] = [];
-                tasks[selectedDateStr].push({
+                if (!tasks[dateStr]) tasks[dateStr] = [];
+                tasks[dateStr].push({
                     title: '💪 Работа',
                     done: false,
                     time: totalHours
                 });
                 saveTasks();
-                if (currentView === 'week') renderWeek();
-                else showSelectedDates();
+                renderCurrentView();
             }
-            closeTimeModal();
+        }
+
+        // Сброс полей ввода
+        function resetTimeInputs(dateStr) {
+            document.getElementById('hInput-' + dateStr).value = '00';
+            document.getElementById('mInput-' + dateStr).value = '00';
+            document.getElementById('hSlider-' + dateStr).value = 0;
+            document.getElementById('mSlider-' + dateStr).value = 0;
+            updateClockInputs(dateStr);
         }
 
         // Рендер дня
@@ -676,13 +615,6 @@
             const dayTasks = tasks[dateStr] || [];
             const totalTime = dayTasks.reduce((sum, t) => sum + (t.time || 0), 0);
             const doneTime = dayTasks.filter(t => t.done).reduce((sum, t) => sum + (t.time || 0), 0);
-
-            // Форматирование времени для электронных часов
-            function formatHours(hours) {
-                const h = Math.floor(hours);
-                const m = Math.round((hours - h) * 60);
-                return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
-            }
 
             const card = document.createElement('div');
             card.className = 'day-card' + (isToday ? ' today' : '');
@@ -694,8 +626,8 @@
 
                 <div class="time-bar">
                     <div class="time-bar-header">
-                        <strong>⏱ Всего: ${formatHours(totalTime)}</strong>
-                        <span>✅ Выполнено: ${formatHours(doneTime)}</span>
+                        <strong>⏱ Всего: ${formatTime(totalTime)}</strong>
+                        <span>✅ Выполнено: ${formatTime(doneTime)}</span>
                     </div>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: ${totalTime > 0 ? (doneTime / totalTime * 100) : 0}%;">
@@ -704,20 +636,42 @@
                     </div>
                 </div>
 
-                <!-- Электронные часы с ползунком -->
-                <div class="digital-clock">
-                    <div class="clock-display" onclick="openTimeModal('${dateStr}')">
-                        ${formatHours(totalTime)}
-                        <small>👇 Тыкни, чтобы добавить время</small>
+                <!-- ДВОЙНОЕ ТАБЛО ВРЕМЕНИ -->
+                <div class="time-setter">
+                    <div class="total-display">
+                        Итого: ${formatTime(totalTime)}
                     </div>
-                    <div class="slider-label">
-                        <span>0ч</span>
-                        <span>Ползунок:</span>
-                        <span>${Math.floor(totalTime)}ч</span>
+                    <div class="time-inputs">
+                        <div class="time-input-group">
+                            <label>Часы</label>
+                            <input type="number" id="hInput-${dateStr}" value="00" min="0" max="24" step="1" oninput="updateSlidersFromInput('${dateStr}')">
+                        </div>
+                        <span class="time-colon">:</span>
+                        <div class="time-input-group">
+                            <label>Минуты</label>
+                            <input type="number" id="mInput-${dateStr}" value="00" min="0" max="59" step="5" oninput="updateSlidersFromInput('${dateStr}')">
+                        </div>
                     </div>
-                    <input type="range" class="time-slider" min="0" max="24" value="${Math.min(Math.floor(totalTime), 24)}" 
-                           oninput="quickAddTime(this, '${dateStr}')">
-                    <button class="add-time-btn" onclick="openTimeModal('${dateStr}')">⏱ + Добавить время</button>
+
+                    <div class="time-sliders">
+                        <div class="slider-row">
+                            <label>Часы</label>
+                            <input type="range" id="hSlider-${dateStr}" min="0" max="24" value="0" step="1" 
+                                   oninput="updateClockInputs('${dateStr}')">
+                            <span class="slider-value" id="hSliderVal-${dateStr}">00</span>
+                        </div>
+                        <div class="slider-row">
+                            <label>Минуты</label>
+                            <input type="range" id="mSlider-${dateStr}" min="0" max="55" value="0" step="5" 
+                                   oninput="updateClockInputs('${dateStr}')">
+                            <span class="slider-value" id="mSliderVal-${dateStr}">00</span>
+                        </div>
+                    </div>
+
+                    <div class="time-actions">
+                        <button class="add-time-btn" onclick="addTimeFromInputs('${dateStr}')">⏱ + Добавить</button>
+                        <button class="add-time-btn reset" onclick="resetTimeInputs('${dateStr}')">↺ Сброс</button>
+                    </div>
                 </div>
 
                 <ul class="task-list" id="taskList-${dateStr}">
@@ -727,7 +681,7 @@
                             <input type="checkbox" ${task.done ? 'checked' : ''} 
                                    onchange="toggleTask('${dateStr}', ${idx})">
                             <span>${task.title}</span>
-                            <span class="task-time">${formatHours(task.time || 0)}</span>
+                            <span class="task-time">${formatTime(task.time || 0)}</span>
                             <button class="delete-btn" onclick="deleteTask('${dateStr}', ${idx})">✖</button>
                         </li>
                     `).join('')}
@@ -741,18 +695,26 @@
             return card;
         }
 
-        // Быстрое добавление времени через ползунок
-        function quickAddTime(slider, dateStr) {
-            const hours = parseFloat(slider.value);
-            if (!tasks[dateStr]) tasks[dateStr] = [];
-            tasks[dateStr].push({
-                title: '💪 Работа',
-                done: false,
-                time: hours
-            });
-            saveTasks();
-            if (currentView === 'week') renderWeek();
-            else showSelectedDates();
+        // Синхронизация полей ввода со слайдерами
+        function updateSlidersFromInput(dateStr) {
+            const hInput = document.getElementById('hInput-' + dateStr);
+            const mInput = document.getElementById('mInput-' + dateStr);
+            const hSlider = document.getElementById('hSlider-' + dateStr);
+            const mSlider = document.getElementById('mSlider-' + dateStr);
+            
+            let h = parseInt(hInput.value) || 0;
+            let m = parseInt(mInput.value) || 0;
+            
+            if (h > 24) h = 24;
+            if (h < 0) h = 0;
+            if (m > 55) m = 55;
+            if (m < 0) m = 0;
+            
+            hSlider.value = h;
+            mSlider.value = m;
+            
+            document.getElementById('hSliderVal-' + dateStr).textContent = String(h).padStart(2, '0');
+            document.getElementById('mSliderVal-' + dateStr).textContent = String(m).padStart(2, '0');
         }
 
         // Рендер недели
@@ -772,6 +734,12 @@
             currentView = 'week';
         }
 
+        // Рендер текущего вида
+        function renderCurrentView() {
+            if (currentView === 'week') renderWeek();
+            else showSelectedDates();
+        }
+
         // Добавление задачи
         function addTask(event, dateStr) {
             event.preventDefault();
@@ -782,8 +750,7 @@
                 if (!tasks[dateStr]) tasks[dateStr] = [];
                 tasks[dateStr].push({ title: title, done: false, time: 0 });
                 saveTasks();
-                if (currentView === 'week') renderWeek();
-                else showSelectedDates();
+                renderCurrentView();
             }
         }
 
@@ -791,8 +758,7 @@
             if (tasks[dateStr] && tasks[dateStr][idx]) {
                 tasks[dateStr][idx].done = !tasks[dateStr][idx].done;
                 saveTasks();
-                if (currentView === 'week') renderWeek();
-                else showSelectedDates();
+                renderCurrentView();
             }
         }
 
@@ -801,8 +767,7 @@
                 tasks[dateStr].splice(idx, 1);
                 if (tasks[dateStr].length === 0) delete tasks[dateStr];
                 saveTasks();
-                if (currentView === 'week') renderWeek();
-                else showSelectedDates();
+                renderCurrentView();
             }
         }
 
@@ -864,14 +829,8 @@
             const percent = total > 0 ? Math.round((done / total) * 100) : 0;
             const timePercent = totalTime > 0 ? Math.round((doneTime / totalTime) * 100) : 0;
 
-            function formatTotal(hours) {
-                const h = Math.floor(hours);
-                const m = Math.round((hours - h) * 60);
-                return h + 'ч ' + m + 'м';
-            }
-
             document.getElementById('stats').innerHTML = 
-                XXXINLINECODEXXX1XXXINLINECODEXXX;
+                XXXINLINECODEXXX0XXXINLINECODEXXX;
         }
 
         function setDefaultDates() {
@@ -882,10 +841,6 @@
             document.getElementById('startDate').value = formatDate(weekAgo);
             document.getElementById('endDate').value = formatDate(today);
         }
-
-        // Слушатели для ползунков в модалке
-        document.getElementById('modalHoursSlider').addEventListener('input', updateModalClock);
-        document.getElementById('modalMinutesSlider').addEventListener('input', updateModalClock);
 
         // Инициализация
         loadTasks();
